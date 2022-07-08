@@ -58,7 +58,6 @@ def cadastro(request):
 
 
 def logar(request):
-
     if request.method == "GET":
 
         # se o usuário já estiver autenticado/logado
@@ -78,13 +77,12 @@ def logar(request):
             messages.add_message(request, constants.ERROR,
                                  'Username ou senha inválidos')
             return redirect('/auth/logar')
-    else:
-        auth.login(request, usuario)
-        return redirect('/')
+        else:
+            auth.login(request, usuario)
+            return redirect('/')
 
 
 def sair(request):
-
     auth.logout(request)
     return redirect('/auth/logar')
 
@@ -94,7 +92,7 @@ def ativar_conta(request, token):
     token = get_object_or_404(Ativacao, token=token)
     if token.ativo:
         messages.add_message(request, constants.WARNING,
-                             'Essa token já foi usado')
+                             'Esse token já foi usado!')
         return redirect('/auth/logar')
     # seleciona usuário cujo username seja o user do token
     user = User.objects.get(username=token.user.username)
