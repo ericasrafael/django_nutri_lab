@@ -10,7 +10,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 # funções requisitadas por cada url
 
-
 @login_required(login_url='/auth/logar/') # função abaixo só poderá ser acessada por usuários logados
 # Renderizando cada requisição (url da aplicação)
 def pacientes(request):
@@ -35,7 +34,6 @@ def pacientes(request):
         if pacientes.exists():
             messages.add_message(request, constants.ERROR, 'Já existe um paciente com esse E-mail!')
             return redirect('/pacientes/')
-        
         
         try:
                 paciente = Pacientes(nome=nome,
@@ -97,7 +95,6 @@ def dados_paciente(request, id):  # recebe id da url (urls)
                                 trigliceridios=triglicerídios)
 
         paciente.save()
-
         messages.add_message(request, constants.SUCCESS, 'Dados cadastrado com sucesso!')
 
         return redirect('/dados_paciente/')
