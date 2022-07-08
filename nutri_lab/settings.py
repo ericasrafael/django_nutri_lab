@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# Primeiro passo: Cadastrar cada aplicativo criado : python manage.py startapp aplicativo_name
+# Criou-se nesse projeto : autenticacao, plataforma
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'autenticacao',
+    'plataforma'
 ]
 
 MIDDLEWARE = [
