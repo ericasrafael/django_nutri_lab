@@ -1,9 +1,12 @@
+<!--HTML dos cards laterais-->
+
 {% extends 'base.html' %}
 {% load static  %}
 
 {% block 'head' %}
 <!--Importando arquivo css para esse html-->
     <link rel="stylesheet" href="{% static 'plataforma/css/css.css' %}">
+    <link rel="stylesheet" href="{% static 'plataforma/css/plano_alimentar.css' %}">
 
 {% endblock %}
 
@@ -18,7 +21,7 @@
                         <img src="{% static 'plataforma/image/paciente.png' %}">
                         <br>
                         <br>
-                  
+                
                         <h3>Gerenciar Pacientes</h3>
                     </div>
                   </a>
@@ -33,13 +36,13 @@
                     </div>
                   </a>
                   
-                  <a href="#" class="link-lateral">
+                  <a href="{% url 'plano_alimentar_listar' %}" class="link-lateral">
                     <div class="card-lateral">
                         <img src="{% static 'plataforma/image/plano_alimentar.png' %}">
                         <br>
                         <br>
                   
-                        <h3>Plano alimentar</h3>
+                        <h3>Plano Alimentar</h3>
                     </div>
                   </a>
 

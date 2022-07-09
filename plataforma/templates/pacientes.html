@@ -23,63 +23,51 @@
     <div class="col-md-4">
         <a href="#" class="link-hover">
             <div class="card-paciente">
-                <div class="foto-perfil">
-                   
+                <div class="foto-perfil">                 
                     {% if paciente.sexo == "M" %}
                         <img src="{% static 'plataforma/image/perfil2.png' %}">
                     {% else %}
                         <img src="{% static 'plataforma/image/perfil1.png' %}">
                     {% endif %}
-
                 </div>
                 <br>
                 <p class="dados">{{paciente.nome}}</p>
-                <p class="dados">{{paciente.idade}} Anos</p>
+                <p class="dados">{{paciente.idade}} anos</p>
                 <p class="dados">{{paciente.email}}</p>
                 
             </div>
         </a>
     </div>
 {% endfor %}
-    
 </div>
-
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
                     <h5 class="modal-title titulo" id="exampleModalLabel">Cadastrar paciente</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
-                </div>
+            </div>
                 
                 <div class="modal-body">
-                    <form action="{% url 'pacientes' %}" method="POST">{% csrf_token %} 
-      
-      
+                    <form action="{% url 'pacientes' %}" method="POST">{% csrf_token %}      
                         <div class="row">
-      
                             <div class="col-md-3">
                                 <img src="{% static 'plataforma/image/perfil2.png' %}">
-                            </div>
-      
+                            </div>   
                             <div class="col-md-9">
                                 <label>Nome:</label>
                                 <input type="text" placeholder="Digite o nome do paciente..." class="form-control" name="nome">
-                            </div>
-      
-                        </div>
-      
+                            </div>    
+                        </div>  
                         <br>
                         <label>Sexo:</label>
                         <select name="sexo" class="form-control">
                             <option value="M">Masculino</option>
                             <option value="F">Feminino</option>
                         </select>
-      
                         <br>
-      
                         <label>Idade:</label>
                         <input type="number" placeholder="0" class="form-control" name="idade">
                         
@@ -87,7 +75,6 @@
                         
                         <label>E-mail:</label>
                         <input type="email" placeholder="exemple@email.com" class="form-control" name="email">   
-      
                         <br>
                         
                         <label>Telefone:</label>
@@ -96,12 +83,8 @@
                         <input type="submit" class="btn btn-success btn-lg" value="Registar">
                     
                     </form>
-      
-      
                 </div>
-            
             </div>
         </div>
-      </div>
-      
+</div>
 {% endblock%}

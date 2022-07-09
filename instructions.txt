@@ -3,8 +3,6 @@ M - MODEL ( interação com Banco de Dados )
 V - VIEW ( lógica funcinal do  django )
 T - TEMPLATE ( interação usuário e aplicação - html, css, js )
 
-
-
 -------------------------Criando Ambiente Virtual no Repositório;
 
 python -m venv venv
@@ -26,4 +24,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 python3 manage.py startapp autenticacao
+
+
+--------------------------Criando model (tabela no banco de dados do django)
+python manage.py makemigrations
+---------------------------Salvando no Banco de dados
+python manage.py migrate
 
