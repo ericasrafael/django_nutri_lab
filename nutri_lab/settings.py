@@ -123,6 +123,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),)
 STATIC_ROOT = os.path.join('static')
+
+# pasta para salvar arquivos de média armazenados via upload no BD
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # armazenando arquivos gerados via upload no site
 MEDIA_URL = '/media/'
 

@@ -118,7 +118,7 @@ def grafico_peso(request, id):
 
 def plano_alimentar_listar(request):
     if request.method == "GET":
-        # lsita pacientes filtrando os pacientes do nitricionista logado
+        # lista pacientes filtrando os pacientes do nitricionista logado
         pacientes = Pacientes.objects.filter(nutri=request.user)
         # envia os dados para o html
         return render(request, 'plano_alimentar_listar.html', {'pacientes': pacientes})
@@ -132,28 +132,57 @@ def plano_alimentar(request, id):
                              'Esse paciente não é seu')
         return redirect('/plano_alimentar_listar/')
     if request.method == "GET":
-        # repassa o paciente
-        return render(request, 'plano_alimentar.html', {'paciente': paciente})
+
+        # filtrando as refeições cadastradas apenas do paciente analisado
+        r1 = Refeicao.objects.filter(paciente=paciente).order_by('horario')
+        opcao = Opcao.objects.all()
+        # repassa o paciente e suas informações para o html
+        return render(request, 'plano_alimentar.html', {'paciente': paciente, 'refeicao': r1,'opcao':opcao})
 
 
 def refeicao(request, id_paciente):
+    # armazena paciente cujo id está na url passada
     paciente = get_object_or_404(Pacientes, id=id_paciente)
-    if not paciente.nutri == request.user:
+    if not paciente.nutri == request.user:  # verifica se o paciente é do nutricionista logado
         messages.add_message(request, constants.ERROR,
                              'Esse paciente não é seu')
         return redirect('/dados_paciente/')
-    if request.method == "POST":
+    if request.method == "POST":  # requisição que veio pelo formulário, capture os dados em variaveis
         titulo = request.POST.get('titulo')
         horario = request.POST.get('horario')
+        # exatamente como tá em "name" na tag
         carboidratos = request.POST.get('carboidratos')
         proteinas = request.POST.get('proteinas')
         gorduras = request.POST.get('gorduras')
+
         r1 = Refeicao(paciente=paciente,
                       titulo=titulo,
                       horario=horario,
                       carboidratos=carboidratos,
                       proteinas=proteinas,
                       gorduras=gorduras)
-        r1.save()
-        messages.add_message(request, constants.SUCCESS, 'Refeição cadastrada')
+        r1.save()  # salva no banco de dados, na tabela Refeicao
+        messages.add_message(request, constants.SUCCESS,
+                             'Refeição cadastrada!')
+        # redireciona pro paciente
+        return redirect(f'/plano_alimentar/{id_paciente}')
+
+
+def opcao(request, id_paciente):
+    if request.method == "POST":
+        # armazenando as informações do formulário
+        id_refeicao = request.POST.get('refeicao')
+        # files recebem arquivos: pdf, imagens, vídeos, etc. OBS: enctype='multipart/form-data' deve está na tag html para enviar os arquivos para o back-end
+        imagem = request.FILES.get('imagem')
+        descricao = request.POST.get("descricao")
+
+        # instanciando na função de armazenamento no BD
+        o1 = Opcao(refeicao_id=id_refeicao,
+                   imagem=imagem,
+                   descricao=descricao)
+
+        # Salvando no BD
+        o1.save()
+
+        messages.add_message(request, constants.SUCCESS, 'Opcao cadastrada')
         return redirect(f'/plano_alimentar/{id_paciente}')
