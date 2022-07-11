@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from django.contrib.messages import constants
 from pathlib import Path
 import os
 
@@ -34,7 +35,7 @@ ALLOWED_HOSTS = []
 # Criou-se nesse projeto : autenticacao, plataforma
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'django.contrib.admin',  # python manage.py createsuperuser
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -125,7 +126,8 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),)
 STATIC_ROOT = os.path.join('static')
 
 # pasta para salvar arquivos de média armazenados via upload no BD
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # armazenando arquivos gerados via upload no site
+# armazenando arquivos gerados via upload no site
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Default primary key field type
@@ -133,21 +135,18 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Messages 
+# Messages
 
-from django.contrib.messages import constants
 
 MESSAGE_TAGS = {
-constants.DEBUG: 'alert-primary',
-constants.ERROR: 'alert-danger',
-constants.SUCCESS: 'alert-success',
-constants.INFO: 'alert-info',
-constants.WARNING: 'alert-warning',
+    constants.DEBUG: 'alert-primary',
+    constants.ERROR: 'alert-danger',
+    constants.SUCCESS: 'alert-success',
+    constants.INFO: 'alert-info',
+    constants.WARNING: 'alert-warning',
 }
 
 # Email
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST_USER = "ana.erica.santos.rafael@gmail.com"
-
-
